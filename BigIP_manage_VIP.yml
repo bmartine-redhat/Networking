@@ -43,7 +43,7 @@
           user: "{{ f5_user }}"
           password: "{{ f5_password }}"
           validate_certs: no
-          transport: cli
+          transport: rest
         name: "{{ VIP_id | default(omit, true) }}"
         pool: "{{ pool_id | default(omit, true) }}"
         port: "{{ port_number | default(omit, true) }}"
