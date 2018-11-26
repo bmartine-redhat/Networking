@@ -1,0 +1,65 @@
+---
+- name: Create/delete/modify a VIP
+  hosts: all
+  connection: local
+  gather_facts: no
+  vars:
+    VIP_id: new_VIP
+    destination_IP:
+    pool_id:
+    port_number:
+    VIP_description:
+    VIP_state: present
+    VIP_disabled_vlans:
+    VIP_enabled_vlans:
+    VIP_type:
+    VIP_source:
+    VIP_snat:
+    VIP_firewall_enforced_policy:
+    VIP_firewall_staged_policy:
+    VIP_ip_protocol:
+    VIP_irules:
+    VIP_policies:
+    VIP_port_translation:
+    VIP_profiles:
+    VIP_server_port:
+    VIP_profiles_name:
+    VIP_profiles_context:
+    VIP_security_log_profiles:
+    VIP_security_nat_policy:
+    VIP_security_nat_policy_domain:
+    VIP_security_nat_policy_device:
+
+    f5_password: xxx
+    f5_user: admin
+
+  tasks:
+    - name: Manage VIP
+      bigip_virtual_server:
+        description: "{{ VIP_description | default(omit, true) }}"
+        destination: "{{ destination_IP | default(omit, true) }}"
+        provider:
+          server: "{{ inventory_hostname }}"
+          user: "{{ f5_user }}"
+          password: "{{ f5_password }}"
+          validate_certs: no
+          transport: cli
+        name: "{{ VIP_id | default(omit, true) }}"
+        pool: "{{ pool_id | default(omit, true) }}"
+        port: "{{ port_number | default(omit, true) }}"
+        state: "{{ VIP_state | default('present') }}"
+        disabled_vlans: "{{ VIP_disabled_vlans | default(omit, true) }}"
+        enabled_vlans: "{{ VIP_enabled_vlans | default(omit, true) }}"
+        type: "{{ VIP_type | default(omit, true) }}"
+        source: "{{ VIP_source | default(omit, true) }}"
+        snat: "{{ VIP_snat | default(omit, true) }}"
+        firewall_enforced_policy: "{{ VIP_firewall_enforced_policy | default(omit, true) }}"
+        firewall_staged_policy: "{{ VIP_firewall_staged_policy | default(omit, true) }}"
+        ip_protocol: "{{ VIP_ip_protocol | default(omit, true) }}"
+        irules: "{{ VIP_irules | default(omit, true) }}"
+        policies: "{{ VIP_policies | default(omit, true) }}"
+        port_translation: "{{ VIP_port_translation | default(omit, true) }}"
+        profiles: "{{ VIP_profiles | default(omit, true) }}"
+        profiles_name: "{{ VIP_profiles_name | default(omit, true) }}"
+        profiles_context: "{{ VIP_profiles_context | default(omit, true) }}"
+      delegate_to: localhost

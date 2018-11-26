@@ -1,0 +1,50 @@
+---
+- name: "Add members to a pool"
+  hosts: all
+  connection: local
+  gather_facts: no
+  vars:
+    pool_id: new_pool
+    port_number: 80
+    f5_password: xxx
+    f5_user: admin
+    host_IP: y.y.y.y
+    host_id: node-1
+    host_state: present
+    pool_connection_limit:
+    pool_description:
+    pool_fqdn:
+    pool_fqdn_auto_populate:
+    pool_partition:
+    pool_preserve_node:
+    pool_priority_group:
+    pool_rate_limit:
+    pool_ratio:
+    pool_reuse_nodes:
+
+
+  tasks:
+    - name: Add members to a pool
+      bigip_pool_member:
+        provider:
+          password: "{{ f5_password }}"
+          server: "{{ inventory_hostname }}"
+          user: "{{ f5_user }}"
+          validate_certs: no
+          transport: rest
+        host: "{{ host_IP }}"
+        name: "{{ host_id }}"
+        pool: "{{ pool_id }}"
+        port: "{{ port_number }}"
+        state: "{{ host_state | default('present') }}" 
+        connection_limit: "{{ pool_connection_limit | default(omit, true) }}" 
+        description: "{{ pool_description | default(omit, true) }}" 
+        fqdn: "{{ pool_fqdn | default(omit, true) }}" 
+        fqdn_auto_populate: "{{ pool_fqdn_auto_populate | default(omit, true) }}" 
+        partition: "{{ pool_partition | default(omit, true) }}"
+        preserve_node: "{{ pool_preserve_node | default(omit, true) }}" 
+        priority_group: "{{ pool_priority_group | default(omit, true) }}" 
+        rate_limit: "{{ pool_rate_limit | default(omit, true) }}" 
+        ratio: "{{ pool_ratio | default(omit, true) }}" 
+        reuse_nodes: "{{ pool_reuse_nodes | default(omit, true) }}" 
+      delegate_to: localhost

@@ -1,0 +1,52 @@
+---
+- name: "Manage node: create, delete, enable or disable it"
+  hosts: all
+  connection: local
+  gather_facts: no
+  vars:
+    host_IP: 
+    host_id: 
+    host_state: 
+    host_partition:
+    host_ratio:
+    host_dynamic_ratio:
+    host_rate_limit:
+    host_connection_limit:
+    host_monitors:
+    host_monitor_type:
+    host_fqdn:
+    host_fqdn_up_interval:
+    host_fqdn_down_interval:
+    host_fqdn_auto_populate:
+    host_fqdn_address_type:
+    host_description:
+
+    f5_password: xxx
+    f5_user: admin
+
+  tasks:
+    - name: Create/delete/modify node
+      bigip_node:
+        provider:
+          server: "{{ inventory_hostname }}"
+          user: "{{ f5_user }}"
+          password: "{{ f5_password }}"
+          validate_certs: no
+          transport: rest
+        host: "{{ host_IP  | default(omit, true) }}"
+        name: "{{ host_id }}"
+        state: "{{ host_state | default('present')}}"
+        partition: "{{ host_partition | default(omit, true) }}"
+        ratio: "{{ host_ratio | default(omit, true) }}"
+        dynamic_ratio: "{{ host_dynamic_ratio | default(omit, true) }}"
+        rate_limit: "{{ host_rate_limit | default(omit, true) }}"
+        connection_limit: "{{ host_connection_limit | default(omit, true) }}"
+        monitors: "{{ host_monitors | default(omit, true) }}"
+        monitor_type: "{{ host_monitor_type | default(omit, true) }}"
+        fqdn: "{{ host_fqdn | default(omit, true) }}"
+        fqdn_up_interval: "{{ host_fqdn_up_interval | default(omit, true) }}"
+        fqdn_down_interval: "{{ host_fqdn_down_interval | default(omit, true) }}"
+        fqdn_auto_populate: "{{ host_fqdn_populate | default(omit, true) }}"
+        fqdn_address_type: "{{ host_fqdn_address_type | default(omit, true) }}"
+        description: "{{ host_description | default(omit, true) }}"
+      delegate_to: localhost

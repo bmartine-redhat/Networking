@@ -1,0 +1,44 @@
+---
+- name: "Create/delete/modify a pool"
+  hosts: all
+  connection: local
+  gather_facts: no
+  vars:
+    pool_id: new_pool
+    pool_lb_method: ratio-member
+    pool_status: present
+    pool_description:
+    pool_monitors:
+    pool_monitor_type:
+    pool_partition:
+    pool_priority_group_activation:
+    pool_quorum:
+    pool_reselect_tries:
+    pool_service_down_action:
+    pool_slow_ramp_time:
+
+    f5_password: xxx
+    f5_user: admin
+  
+  tasks:
+    - name: Manage pool
+      bigip_pool:
+        lb_method: "{{ pool_lb_method | default(omit, true) }}"
+        name: "{{pool_id}}"
+        provider:
+          password: "{{f5_password}}"
+          server: "{{ inventory_hostname }}"
+          user: "{{f5_user}}"
+          validate_certs: no
+          transport: cli
+        state: "{{ pool_state | default('present') }}"
+        partition: "{{ pool_partition | default('Common') }}"
+        monitors: "{{ pool_monitors | default(omit, true) }}"
+        monitor_type: "{{ pool_monitor_type | default(omit, true) }}"
+        priority_group_activation: "{{ pool_priority_group_activation | default(omit, true) }}"
+        quorum: "{{ pool_quorum | default(omit, true) }}"
+        reselect_tries: "{{ pool_reselect_tries | default(omit, true) }}"
+        service_down_action: "{{ pool_service_down_action | default(omit, true) }}"
+        slow_ramp_time: "{{ pool_slow_ramp_time | default(omit, true) }}"
+        description: "{{ pool_description | default(omit, true) }}"
+      delegate_to: localhost
