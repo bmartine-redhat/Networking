@@ -30,7 +30,7 @@
           server: "{{ inventory_hostname }}"
           user: "{{f5_user}}"
           validate_certs: no
-          transport: cli
+          transport: rest
         state: "{{ pool_state | default('present') }}"
         partition: "{{ pool_partition | default('Common') }}"
         monitors: "{{ pool_monitors | default(omit, true) }}"
