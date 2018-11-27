@@ -9,7 +9,8 @@
     pool_id:
     port_number:
     VIP_description:
-    VIP_state: present
+    #VIP_state: present
+    state: present
     VIP_disabled_vlans:
     VIP_enabled_vlans:
     VIP_type:
@@ -47,7 +48,8 @@
         name: "{{ VIP_id | default(omit, true) }}"
         pool: "{{ pool_id | default(omit, true) }}"
         port: "{{ port_number | default(omit, true) }}"
-        state: "{{ VIP_state | default('present') }}"
+#        state: "{{ VIP_state | default('present') }}"
+        state: "{{ state | default('present') }}"
         disabled_vlans: "{{ VIP_disabled_vlans | default(omit, true) }}"
         enabled_vlans: "{{ VIP_enabled_vlans | default(omit, true) }}"
         type: "{{ VIP_type | default(omit, true) }}"

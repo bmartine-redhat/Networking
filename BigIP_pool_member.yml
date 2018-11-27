@@ -10,7 +10,8 @@
     f5_user: admin
     host_IP: y.y.y.y
     host_id: node-1
-    host_state: present
+#    host_state: present
+    state: present
     pool_connection_limit:
     pool_description:
     pool_fqdn:
@@ -36,7 +37,8 @@
         name: "{{ host_id }}"
         pool: "{{ pool_id }}"
         port: "{{ port_number }}"
-        state: "{{ host_state | default('present') }}" 
+        state: "{{ state | default('present') }}" 
+#        state: "{{ host_state | default('present') }}"
         connection_limit: "{{ pool_connection_limit | default(omit, true) }}" 
         description: "{{ pool_description | default(omit, true) }}" 
         fqdn: "{{ pool_fqdn | default(omit, true) }}" 

@@ -6,7 +6,8 @@
   vars:
     host_IP: 
     host_id: 
-    host_state: 
+  #  host_state: 
+    state:
     host_partition:
     host_ratio:
     host_dynamic_ratio:
@@ -35,7 +36,8 @@
           transport: rest
         host: "{{ host_IP  | default(omit, true) }}"
         name: "{{ host_id }}"
-        state: "{{ host_state | default('present')}}"
+   #     state: "{{ host_state | default('present')}}"
+        state: "{{ state | default('present')}}"
         partition: "{{ host_partition | default(omit, true) }}"
         ratio: "{{ host_ratio | default(omit, true) }}"
         dynamic_ratio: "{{ host_dynamic_ratio | default(omit, true) }}"
