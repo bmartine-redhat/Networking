@@ -4,7 +4,7 @@
   connection: network_cli
   gather_facts: no
   vars:
-    dir: /home/student1/backups
+    temp_dir: /var/lib/awx/projects/_15__demolab/2-1-backup/backup
 
   tasks:
     - name: BACKUP THE CONFIG
@@ -12,11 +12,10 @@
         backup: yes
       register: config_output
 
-
-    - name: "Saving temporary path of backup"
-      set_stats:
-        data:
-          temp_dir:  "{{config_output.backup_path}}"
+    - name: RENAME BACKUP
+      copy:
+        src: "{{config_output.backup_path}}"
+        dest: "{{ temp_dir }}/{{inventory_hostname}}.config"
 
 
 - name: BACKUP ROUTER CONFIGURATIONS
@@ -24,6 +23,8 @@
   gather_facts: no
   vars:
     dir: /home/ec2-user/backup
+    temp_dir: /var/lib/awx/projects/_15__demolab/2-1-backup/backup/
+
 
   tasks:
 
@@ -41,7 +42,7 @@
     - name: RENAME BACKUP
       copy:
         src: "{{temp_dir}}"
-        dest: "{{ dir }}/{{inventory_hostname}}.config"
+        dest: "{{ dir }}"
 
 
     - name: REMOVE NON CONFIG LINES
