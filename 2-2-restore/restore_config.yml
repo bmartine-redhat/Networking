@@ -7,6 +7,10 @@
     temp_dir: /var/lib/awx/projects/_15__demolab/2-1-backup/backup
 
   tasks:
+    - name: Write the host key to known hosts
+      connection: local
+      shell: "ssh-keyscan -H {{ inventory_hostname }} >> ~/.ssh/known_hosts"
+
     - name: COPY RUNNING CONFIG TO ROUTER
       command: scp /"{{temp_dir}}"/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
       ignore_errors: yes
