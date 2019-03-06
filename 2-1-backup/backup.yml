@@ -4,7 +4,7 @@
   connection: network_cli
   gather_facts: no
   vars:
-    dir: /home/student1/backup
+    dir: /home/student1/
 
   tasks:
     - name: BACKUP THE CONFIG
