@@ -3,12 +3,17 @@
   hosts: cisco
   connection: network_cli
   gather_facts: no
+  vars:
+    temp_dir: /var/lib/awx/projects/_15__demolab/2-1-backup/backup
 
   tasks:
     - name: COPY RUNNING CONFIG TO ROUTER
-      command: scp ./backup/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
+      command: scp /"{{temp_dir}}"/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
+      ignore_errors: yes
 
     - name: CONFIG REPLACE
       ios_command:
         commands:
           - config replace flash:{{inventory_hostname}}.config force
+      ignore_errors: yes
+
