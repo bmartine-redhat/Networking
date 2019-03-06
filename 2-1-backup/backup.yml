@@ -5,6 +5,7 @@
   gather_facts: no
   vars:
     dir: /home/student1/backups
+    config_output:
 
   tasks:
     - name: BACKUP THE CONFIG
