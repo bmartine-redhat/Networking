@@ -4,7 +4,7 @@
   connection: network_cli
   gather_facts: no
   vars:
-    dir: /home/student1
+    dir: /home/student1/backups
 
   tasks:
     - name: BACKUP THE CONFIG
@@ -12,11 +12,17 @@
         backup: yes
       register: config_output
 
-    #- name: Create directory for the backups
-    #  file:
-    #    path: /etc/some_directory
-    #    state: directory
-    #    mode: 0755
+- name: BACKUP ROUTER CONFIGURATIONS
+  hosts: localhost
+  gather_facts: no
+  vars:
+    dir: /home/student1/backup
+
+    - name: Create directory for the backups
+      file:
+        path: {{dir}} 
+        state: directory
+        mode: 0755
 
     - name: RENAME BACKUP
       copy:
