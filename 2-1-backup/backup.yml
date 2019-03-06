@@ -18,6 +18,8 @@
   vars:
     dir: /home/student1/backup
 
+  tasks:
+
     - name: Create directory for the backups
       file:
         path: {{dir}} 
