@@ -12,10 +12,11 @@
         backup: yes
       register: config_output
 
-    - file:
-      path: /etc/some_directory
-      state: directory
-      mode: 0755
+    - name: Create directory for the backups
+      file:
+        path: /etc/some_directory
+        state: directory
+        mode: 0755
 
     - name: RENAME BACKUP
       copy:
