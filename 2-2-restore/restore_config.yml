@@ -8,9 +8,9 @@
 
   tasks:
     
-    - name: COPY RUNNING CONFIG TO ROUTER
-      command: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null /"{{temp_dir}}"/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
-      ignore_errors: yes
+#    - name: COPY RUNNING CONFIG TO ROUTER
+#      command: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null /"{{temp_dir}}"/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
+#      ignore_errors: yes
 
     - name: CONFIG REPLACE
       ios_command:
