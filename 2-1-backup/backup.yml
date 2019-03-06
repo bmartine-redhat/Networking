@@ -22,7 +22,7 @@
 
     - name: Create directory for the backups
       file:
-        path: {{dir}} 
+        path: "{{dir}}" 
         state: directory
         mode: 0755
 
