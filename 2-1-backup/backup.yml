@@ -13,10 +13,10 @@
       register: config_output
 
 - name: BACKUP ROUTER CONFIGURATIONS
-  hosts: localhost
+  hosts: ansible
   gather_facts: no
   vars:
-    dir: /home/student1/backup
+    dir: /home/ec2-user/backup
 
   tasks:
 
@@ -25,9 +25,9 @@
         path: "{{dir}}" 
         state: directory
         mode: 0755
-      become: yes
-      become_method: su
-      become_user: student1
+#      become: yes
+#      become_method: su
+#      become_user: student1
 #      become_pass: ansible
 
 
@@ -35,10 +35,6 @@
       copy:
         src: "{{config_output.backup_path}}"
         dest: "{{ dir }}/{{inventory_hostname}}.config"
-      become: yes
-      become_method: su
-      become_user: student1
- #     become_pass: ansible
 
 
     - name: REMOVE NON CONFIG LINES
@@ -46,10 +42,6 @@
         path: "{{ dir }}/{{inventory_hostname}}.config"
         line: "Building configuration..."
         state: absent
-      become: yes
-      become_method: su
-      become_user: student1
-  #    become_pass: ansible
 
 
     - name: REMOVE NON CONFIG LINES - REGEXP
@@ -57,8 +49,4 @@
         path: "{{ dir }}/{{inventory_hostname}}.config"
         regexp: 'Current configuration.*'
         state: absent  
-      become: yes
-      become_method: su
-      become_user: student1
-#      become_pass: ansible
 
