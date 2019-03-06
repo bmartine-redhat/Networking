@@ -5,13 +5,19 @@
   gather_facts: no
   vars:
     dir: /home/student1/backups
-    config_output:
 
   tasks:
     - name: BACKUP THE CONFIG
       ios_config:
         backup: yes
       register: config_output
+
+
+    - name: "Saving temporary path of backup"
+      set_stats:
+        data:
+          temp_dir:  "{{config_output.backup_path}}"
+
 
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: ansible
@@ -34,7 +40,7 @@
 
     - name: RENAME BACKUP
       copy:
-        src: "{{config_output.backup_path}}"
+        src: "{{temp_dir}}"
         dest: "{{ dir }}/{{inventory_hostname}}.config"
 
 
