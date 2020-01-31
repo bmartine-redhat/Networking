@@ -17,9 +17,10 @@
     pool_reselect_tries:
     pool_service_down_action:
     pool_slow_ramp_time:
-
+        
     f5_password: xxx
     f5_user: admin
+    f5_provider_server_port: 8443
   
   tasks:
     - name: Manage pool
@@ -32,6 +33,7 @@
           user: "{{f5_user}}"
           validate_certs: no
           transport: rest
+          server_port: "{{ f5_provider_server_port }}"
         #state: "{{ pool_state | default('present') }}"
         state: "{{ state | default('present') }}"
         partition: "{{ pool_partition | default('Common') }}"
