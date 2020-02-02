@@ -5,6 +5,7 @@
   gather_facts: false
   vars:
     balancing_method:
+    pool_name:
 
   tasks:
 
@@ -16,7 +17,7 @@
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
         validate_certs: false
-      name: "http_pool"
+      name: "{{pool_name}}"
       lb_method: "{{balancing_method}}"
       monitors: "/Common/http"
       monitor_type: "and_list"
