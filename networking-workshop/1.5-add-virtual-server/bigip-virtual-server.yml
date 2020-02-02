@@ -3,6 +3,8 @@
   hosts: lb
   connection: local
   gather_facts: false
+  vars:
+    pool_name:
 
   tasks:
 
@@ -19,5 +21,5 @@
       port: "443"
       enabled_vlans: "all"
       all_profiles: ['http', 'clientssl', 'oneconnect']
-      pool: "http_pool"
+      pool: "{{pool_name}}"
       snat: "Automap"
