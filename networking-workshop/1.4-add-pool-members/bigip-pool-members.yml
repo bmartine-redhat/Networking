@@ -3,6 +3,8 @@
   hosts: lb
   connection: local
   gather_facts: false
+    vars:
+    pool_name:
 
   tasks:
 
@@ -18,5 +20,5 @@
       name: "{{hostvars[item].inventory_hostname}}"
       host: "{{hostvars[item].ansible_host}}"
       port: "80"
-      pool: "http_pool"
+      pool: "{{pool_name}}"
     loop: "{{ groups['webservers'] }}"
