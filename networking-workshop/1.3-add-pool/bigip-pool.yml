@@ -3,6 +3,8 @@
   hosts: lb
   connection: local
   gather_facts: false
+  vars:
+    balancing_method:
 
   tasks:
 
@@ -15,6 +17,6 @@
         server_port: 8443
         validate_certs: false
       name: "http_pool"
-      lb_method: "round-robin"
+      lb_method: "{{balancing_method}}"
       monitors: "/Common/http"
       monitor_type: "and_list"
